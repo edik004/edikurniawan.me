@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dr. Edi Kurniawan — Research Professor, Research Center for Photonics-BRIN</title>
+  <meta name="description" content="Dr. Edi Kurniawan, S.T., M.Eng. — Research Professor at Research Center for Photonics-BRIN. Control systems, machine learning, AI for photonics.">
+  <meta name="keywords" content="Edi Kurniawan, BRIN, Photonics, Control Systems, Machine Learning, Repetitive Control, Sliding Mode Control, Deep Learning">
+  <meta property="og:title" content="Dr. Edi Kurniawan — Research Center for Photonics-BRIN">
+  <meta property="og:description" content="Research Professor. Control systems, machine learning, AI for photonics.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://edikurniawan.me">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg-secondary: #f7f7f5;
+      --bg-tertiary: #f0eeea;
+      --text-primary: #1a1a1a;
+      --text-secondary: #6b6b6b;
+      --text-tertiary: #999;
+      --border: rgba(0,0,0,0.1);
+      --border-hover: rgba(0,0,0,0.2);
+      --accent: #1a5fa5;
+      --accent-light: #e8f0fb;
+      --accent-dark: #0c3d6e;
+      --green: #1d9e75;
+      --green-light: #e1f5ee;
+      --amber: #ba7517;
+      --amber-light: #faeeda;
+      --coral-light: #faece7;
+      --coral: #993c1d;
+      --purple-light: #eeedfe;
+      --purple: #534ab7;
+      --success-light: #eaf3de;
+      --success: #3b6d11;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-serif: 'Source Serif 4', Georgia, serif;
+      --radius: 8px;
+      --radius-lg: 12px;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1a1a1a; --bg-secondary: #242424; --bg-tertiary: #2c2c2c;
+        --text-primary: #e8e8e8; --text-secondary: #a0a0a0; --text-tertiary: #777;
+        --border: rgba(255,255,255,0.1); --border-hover: rgba(255,255,255,0.2);
+        --accent: #5a9fd4; --accent-light: #1a2e42; --accent-dark: #8bc4f0;
+        --green: #5dcaa5; --green-light: #0f2e22;
+        --amber: #efb052; --amber-light: #2e2210;
+        --coral-light: #2e1a12; --coral: #f0997b;
+        --purple-light: #24214a; --purple: #afa9ec;
+        --success-light: #1a2810; --success: #97c459;
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-sans); background: var(--bg); color: var(--text-primary); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    .site-nav { border-bottom: 0.5px solid var(--border); position: sticky; top: 0; z-index: 100; background: var(--bg); backdrop-filter: blur(12px); }
+    .site-nav-inner { display: flex; align-items: center; gap: 1.5rem; padding: 0.75rem 2rem; max-width: 1100px; margin: 0 auto; }
+    .brand { font-size: 15px; font-weight: 600; color: var(--text-primary); letter-spacing: -0.02em; white-space: nowrap; }
+    .site-nav nav { display: flex; gap: 2px; flex-wrap: wrap; }
+    .site-nav nav a { font-size: 12px; color: var(--text-secondary); text-decoration: none; padding: 5px 10px; border-radius: var(--radius); cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+    .site-nav nav a:hover, .site-nav nav a.active { color: var(--text-primary); background: var(--bg-secondary); }
+    .layout { display: grid; grid-template-columns: 230px minmax(0, 1fr); min-height: calc(100vh - 50px); max-width: 1100px; margin: 0 auto; }
+    @media (max-width: 768px) { .layout { grid-template-columns: 1fr; } .sidebar { border-right: none; border-bottom: 0.5px solid var(--border); position: static; } .site-nav-inner { flex-direction: column; gap: 8px; } .site-nav nav { justify-content: center; } }
+    .sidebar { padding: 2rem 1.5rem; border-right: 0.5px solid var(--border); position: sticky; top: 50px; height: fit-content; max-height: calc(100vh - 50px); overflow-y: auto; }
+    .avatar-wrap { width: 100px; height: 100px; border-radius: 50%; overflow: hidden; background: var(--accent-light); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; border: 2px solid var(--border); }
+    .avatar-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .avatar-fallback { font-size: 32px; font-weight: 600; color: var(--accent); }
+    .sidebar h1 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+    .sidebar .title { font-size: 12px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 0.5rem; }
+    .sidebar .org { font-size: 12px; color: var(--text-secondary); margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 0.5px solid var(--border); }
+    .sidebar-links { display: flex; flex-direction: column; gap: 7px; margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 0.5px solid var(--border); }
+    .sidebar-link { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--text-secondary); text-decoration: none; }
+    .sidebar-link:hover { color: var(--accent); }
+    .sidebar-link i { font-size: 14px; width: 16px; }
+    .stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 0.5px solid var(--border); }
+    .stat-pill { background: var(--bg-secondary); border-radius: var(--radius); padding: 8px; text-align: center; }
+    .stat-pill .n { font-size: 16px; font-weight: 600; color: var(--text-primary); }
+    .stat-pill .l { font-size: 9px; color: var(--text-secondary); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .visitor-box { background: var(--bg-secondary); border-radius: var(--radius); padding: 12px; }
+    .vt { font-size: 10px; color: var(--text-secondary); margin-bottom: 8px; display: flex; align-items: center; gap: 5px; }
+    .live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); display: inline-block; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+    .visitor-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px; }
+    .vl { font-size: 10px; color: var(--text-secondary); }
+    .vv { font-size: 11px; font-weight: 500; color: var(--text-primary); }
+    .vbar-bg { background: var(--border); border-radius: 2px; height: 3px; margin-top: 2px; }
+    .vbar { background: var(--accent); border-radius: 2px; height: 3px; }
+    .visitor-powered { font-size: 9px; color: var(--text-tertiary); margin-top: 8px; }
+    .main { padding: 2rem 2.5rem; max-width: 800px; }
+    @media (max-width: 768px) { .main { padding: 1.5rem 1rem; } }
+    .section { display: none; }
+    .section.active { display: block; }
+    .section-title { font-size: 22px; font-weight: 600; margin-bottom: 0.5rem; letter-spacing: -0.02em; }
+    .section-sub { font-size: 13px; color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.7; }
+    .section-sub a { color: var(--accent); text-decoration: none; }
+    .section-sub a:hover { text-decoration: underline; }
+    .sub-heading { font-size: 11px; font-weight: 500; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.75rem; margin-top: 1.5rem; }
+    .divider { border: none; border-top: 0.5px solid var(--border); margin: 1.5rem 0; }
+    .about-bio { font-size: 14px; color: var(--text-secondary); line-height: 1.9; margin-bottom: 1rem; }
+    .about-bio strong { color: var(--text-primary); font-weight: 500; }
+    .about-bio em { font-family: var(--font-serif); font-style: italic; color: var(--text-primary); }
+    .kw-wrap { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 0.75rem; }
+    .kw-tag { font-size: 11px; padding: 3px 10px; background: var(--bg-secondary); border: 0.5px solid var(--border); border-radius: var(--radius); color: var(--text-secondary); }
+    .timeline { border-left: 2px solid var(--border); padding-left: 1.5rem; }
+    .tl-item { margin-bottom: 1.25rem; position: relative; }
+    .tl-item::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); position: absolute; left: -1.8rem; top: 5px; }
+    .tl-year { font-size: 11px; color: var(--text-tertiary); }
+    .tl-label { font-size: 14px; font-weight: 500; }
+    .tl-place { font-size: 12px; color: var(--text-secondary); }
+    .pub-brin { font-size: 13px; color: var(--text-secondary); line-height: 1.8; padding: 0.75rem 0; border-bottom: 0.5px solid var(--border); }
+    .pub-brin:last-child { border-bottom: none; }
+    .pub-brin em { color: var(--text-primary); font-style: normal; font-weight: 500; }
+    .pub-brin .journal { font-family: var(--font-serif); font-style: italic; }
+    .pub-brin .doi-link { font-size: 11px; color: var(--accent); cursor: pointer; text-decoration: none; }
+    .pub-brin .doi-link:hover { text-decoration: underline; }
+    .topik-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+    .topik-card { padding: 1.25rem; border: 0.5px solid var(--border); border-radius: var(--radius-lg); background: var(--bg); }
+    .topik-card:hover { border-color: var(--border-hover); }
+    .tc-num { font-size: 10px; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+    .topik-card h3 { font-size: 14px; font-weight: 600; line-height: 1.4; margin-bottom: 3px; }
+    .tc-sub { font-size: 11px; color: var(--text-secondary); font-style: italic; margin-bottom: 10px; }
+    .tc-level { font-size: 10px; padding: 2px 8px; background: var(--accent-light); color: var(--accent); border-radius: var(--radius); display: inline-block; margin-bottom: 10px; font-weight: 500; }
+    .tc-section { margin-bottom: 8px; }
+    .tc-section-label { font-size: 9px; font-weight: 500; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+    .tc-tag-wrap { display: flex; flex-wrap: wrap; gap: 4px; }
+    .tc-tag { font-size: 10px; padding: 2px 7px; background: var(--bg-secondary); border-radius: var(--radius); color: var(--text-secondary); }
+    .res-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+    .res-card { padding: 1.25rem; border: 0.5px solid var(--border); border-radius: var(--radius-lg); background: var(--bg); }
+    .res-card:hover { border-color: var(--border-hover); }
+    .res-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .res-icon { font-size: 20px; color: var(--accent); }
+    .res-card h3 { font-size: 13px; font-weight: 600; }
+    .res-section-label { font-size: 9px; font-weight: 500; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.05em; margin: 8px 0 4px; }
+    .res-tag-wrap { display: flex; flex-wrap: wrap; gap: 4px; }
+    .res-tag { font-size: 10px; padding: 2px 7px; background: var(--bg-secondary); border-radius: var(--radius); color: var(--text-secondary); }
+    .teach-item { padding: 1rem 1.25rem; border: 0.5px solid var(--border); border-radius: var(--radius-lg); margin-bottom: 0.875rem; background: var(--bg); }
+    .teach-item:hover { border-color: var(--border-hover); }
+    .teach-item h3 { font-size: 14px; font-weight: 500; }
+    .teach-item .inst { font-size: 12px; color: var(--accent); margin: 3px 0 6px; }
+    .teach-item p { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+    .award-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .award-item { display: flex; gap: 12px; align-items: flex-start; padding: 1rem 1.25rem; border: 0.5px solid var(--border); border-radius: var(--radius-lg); background: var(--bg); }
+    .award-item:hover { border-color: var(--border-hover); }
+    .award-item > i { font-size: 18px; color: var(--amber); flex-shrink: 0; margin-top: 2px; }
+    .award-item h3 { font-size: 14px; font-weight: 500; margin-bottom: 2px; }
+    .award-item p { font-size: 12px; color: var(--text-secondary); }
+    .sup-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.875rem; }
+    .sup-card { padding: 1rem; border: 0.5px solid var(--border); border-radius: var(--radius-lg); background: var(--bg); }
+    .sup-card:hover { border-color: var(--border-hover); }
+    .sname { font-size: 13px; font-weight: 500; }
+    .suniv { font-size: 11px; color: var(--accent); margin: 2px 0; }
+    .stopic { font-size: 11px; color: var(--text-secondary); }
+    .syear { font-size: 10px; color: var(--text-tertiary); margin-top: 3px; }
+    .reviewer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 6px; }
+    .reviewer-pill { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border: 0.5px solid var(--border); border-radius: var(--radius); background: var(--bg); }
+    .reviewer-pill i { font-size: 14px; color: var(--accent); flex-shrink: 0; }
+    .reviewer-pill span { font-size: 11px; color: var(--text-secondary); }
+    .dataset-item { padding: 1rem 1.25rem; border: 0.5px solid var(--border); border-radius: var(--radius-lg); margin-bottom: 0.875rem; background: var(--bg); display: flex; gap: 12px; align-items: flex-start; }
+    .dataset-item:hover { border-color: var(--border-hover); }
+    .dataset-item > i { font-size: 18px; color: var(--green); flex-shrink: 0; margin-top: 2px; }
+    .dataset-item h3 { font-size: 13px; font-weight: 500; margin-bottom: 3px; }
+    .dataset-item p { font-size: 12px; color: var(--text-secondary); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.875rem; }
+    @media (max-width: 600px) { .contact-grid { grid-template-columns: 1fr; } }
+    .contact-card { padding: 1rem; border: 0.5px solid var(--border); border-radius: var(--radius-lg); background: var(--bg); display: flex; align-items: center; gap: 12px; }
+    .contact-card:hover { border-color: var(--border-hover); }
+    .contact-card i { font-size: 18px; color: var(--accent); }
+    .cl { font-size: 10px; color: var(--text-tertiary); }
+    .cv { font-size: 12px; font-weight: 500; }
+    .cv-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; border: 0.5px solid var(--border-hover); border-radius: var(--radius); font-size: 13px; font-weight: 500; color: var(--text-primary); background: var(--bg); cursor: pointer; text-decoration: none; margin-bottom: 1.25rem; transition: all 0.15s; }
+    .cv-btn:hover { background: var(--bg-secondary); }
+    .student-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 1.5rem; }
+    .student-table th { text-align: left; font-size: 10px; font-weight: 500; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.06em; padding: 8px 10px; border-bottom: 1px solid var(--border); }
+    .student-table td { padding: 8px 10px; border-bottom: 0.5px solid var(--border); color: var(--text-secondary); vertical-align: top; }
+    .student-table td:first-child { color: var(--text-primary); font-weight: 500; }
+    .student-table tr:last-child td { border-bottom: none; }
+    .student-table tr:hover td { background: var(--bg-secondary); }
+    .site-footer { text-align: center; padding: 2rem; border-top: 0.5px solid var(--border); font-size: 11px; color: var(--text-tertiary); max-width: 1100px; margin: 0 auto; }
+    .site-footer a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <header class="site-nav">
+    <div class="site-nav-inner">
+      <span class="brand">Edi Kurniawan</span>
+      <nav>
+      <a class="active" onclick="go('about',this)">About</a>
+      <a onclick="go('topik',this)">Research Topics</a>
+      <a onclick="go('publications',this)">Publications</a>
+      <a onclick="go('research',this)">Research</a>
+      <a onclick="go('awards',this)">Awards</a>
+      <a onclick="go('supervision',this)">Supervision</a>
+      <a onclick="go('activities',this)">Activities</a>
+      <a onclick="go('datasets',this)">Datasets</a>
+      <a onclick="go('cv',this)">CV &amp; Contact</a>
+    </nav>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="avatar-wrap">
+        <img src="https://brin.go.id/ornm/pusat-riset-fotonik/images/ekurniawan.jpg" alt="Dr. Edi Kurniawan" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="avatar-fallback" style="display:none">EK</div>
+      </div>
+      <h1>Dr. Edi Kurniawan</h1>
+      <p class="title">S.T., M.Eng<br>Research Professor (Peneliti Ahli Utama)</p>
+      <p class="org">Research Center for Photonics-BRIN<br>KST BJ Habibie, Serpong 15314<br>Tangerang Selatan, Banten, Indonesia</p>
+      <div class="sidebar-links">
+        <a class="sidebar-link" href="mailto:edik004@brin.go.id"><i class="ti ti-mail"></i>edik004@brin.go.id</a>
+        <a class="sidebar-link" href="mailto:edik004@pm.me"><i class="ti ti-mail"></i>edik004@pm.me</a>
+        <a class="sidebar-link" href="https://orcid.org/0000-0002-6198-9217" target="_blank"><i class="ti ti-id"></i>ORCID &middot; 0000-0002-6198-9217</a>
+        <a class="sidebar-link" href="http://scholar.google.com.au/citations?user=p16rGPgAAAAJ&hl=en" target="_blank"><i class="ti ti-school"></i>Google Scholar</a>
+        <a class="sidebar-link" href="http://www.scopus.com/authid/detail.url?authorId=59685419300" target="_blank"><i class="ti ti-topology-star"></i>Scopus &middot; 59685419300</a>
+        <a class="sidebar-link" href="http://www.webofscience.com/wos/author/record/J-9413-2019" target="_blank"><i class="ti ti-file-certificate"></i>WoS &middot; J-9413-2019</a>
+        <a class="sidebar-link" href="https://ieeexplore.ieee.org/author/38239011200" target="_blank"><i class="ti ti-antenna-bars-5"></i>IEEEXplore</a>
+        <a class="sidebar-link" href="https://www.researchgate.net/profile/Edi_Kurniawan" target="_blank"><i class="ti ti-users"></i>ResearchGate</a>
+        <a class="sidebar-link" href="https://tinyurl.com/ekurniawan" target="_blank"><i class="ti ti-world"></i>Sivitas BRIN</a>
+      </div>
+      <div class="stat-row">
+        <div class="stat-pill"><div class="n">150+</div><div class="l">Publications</div></div>
+        <div class="stat-pill"><div class="n">14</div><div class="l">h-index</div></div>
+        <div class="stat-pill"><div class="n">820+</div><div class="l">Citations</div></div>
+        <div class="stat-pill"><div class="n">25+</div><div class="l">Patents</div></div>
+      </div>
+      <div class="visitor-box">
+        <div class="vt"><span class="live-dot"></span> Site analytics (30d)</div>
+        <div class="visitor-row"><span class="vl">Total visits</span><span class="vv" id="v-total">&mdash;</span></div>
+        <div class="visitor-row"><span class="vl">Unique visitors</span><span class="vv" id="v-unique">&mdash;</span></div>
+        <div class="visitor-row"><span class="vl">Today</span><span class="vv" id="v-today">&mdash;</span></div>
+        <div style="margin-top:8px">
+          <div style="font-size:9px;color:var(--text-tertiary);margin-bottom:5px">Top countries</div>
+          <div style="margin-bottom:4px"><div class="visitor-row"><span class="vl">&#127470;&#127465; Indonesia</span><span class="vv">42%</span></div><div class="vbar-bg"><div class="vbar" style="width:42%"></div></div></div>
+          <div style="margin-bottom:4px"><div class="visitor-row"><span class="vl">&#127462;&#127482; Australia</span><span class="vv">18%</span></div><div class="vbar-bg"><div class="vbar" style="width:18%"></div></div></div>
+          <div style="margin-bottom:4px"><div class="visitor-row"><span class="vl">&#127482;&#127480; USA</span><span class="vv">11%</span></div><div class="vbar-bg"><div class="vbar" style="width:11%"></div></div></div>
+          <div><div class="visitor-row"><span class="vl">&#127465;&#127466; Germany</span><span class="vv">7%</span></div><div class="vbar-bg"><div class="vbar" style="width:7%"></div></div></div>
+        </div>
+        <div class="visitor-powered">Powered by Umami Analytics</div>
+      </div>
+    </aside>
+
+    <main class="main">
+
+      <!-- ABOUT -->
+      <div class="section active" id="sec-about">
+        <h2 class="section-title">About</h2>
+        <p class="about-bio"><strong>Dr. Edi Kurniawan, S.T., M.Eng.</strong> received his B.Eng. degree <strong>(cumlaude)</strong> from <strong>Gadjah Mada University</strong>, Indonesia (2003), M.Eng. from the <strong>University of Adelaide</strong>, Australia (2009), and PhD from <strong>Swinburne University of Technology</strong>, Australia (2013) in control systems &mdash; with thesis: <em>&ldquo;<a href="https://hdl.handle.net/1959.3/368048" target="_blank" style="color:var(--accent);text-decoration:none">Robust Repetitive Control and its Applications</a>.&rdquo;</em></p>
+        <p class="about-bio">He is currently a <strong>Research Professor (Peneliti Ahli Utama)</strong> at the Control and Precision Measurement Research Group, <strong>Research Center for Photonics-BRIN</strong>, Serpong. His research interests include learning control, robust control, machine learning, deep learning, and artificial intelligence for photonics.</p>
+        <p class="about-bio">He is a <strong>2018 Fulbright Scholar</strong> at Northern Arizona University (USA), a <strong>2016/2017 US-ASEAN Science &amp; Technology Fellow</strong> placed at the Ministry of Research, Technology, and Higher Education (Menristekdikti), and an <strong>Asian Science Diplomat (ASD) 2021</strong>. He received the <strong>BRIN Best Researcher Award 2023</strong> for research achievements in 2022, representing the Nanotechnology and Materials Research Organization.</p>
+        <p class="about-bio">During his academic career, he spent time as a visiting research fellow at <strong>CERN</strong> (2014, Switzerland), <strong>Royal Melbourne Institute of Technology</strong> (2015, Australia), <strong>Swinburne University of Technology</strong> (2015, Australia), and <strong>Technische Universit&auml;t Berlin</strong> (2015, Germany).</p>
+        <p class="about-bio">He currently serves as a guest editor and reviewer for more than 35 top-tier journals indexed by Web of Science, and contributes as a committee member for several international conferences. With research interests spanning control theory, machine learning, and AI for photonics, he continues to explore AI-driven solutions for sustainable agriculture, advanced sensing, and next-generation control systems &mdash; while actively mentoring students and fostering international collaborations.</p>
+
+        <div class="kw-wrap">
+          <span class="kw-tag">Control System</span><span class="kw-tag">Machine Learning</span><span class="kw-tag">Artificial Intelligence</span><span class="kw-tag">Photonics</span><span class="kw-tag">Repetitive Control</span><span class="kw-tag">Sliding Mode Control</span><span class="kw-tag">Deep Learning</span><span class="kw-tag">Fiber Optic Sensing</span><span class="kw-tag">Signal Processing</span><span class="kw-tag">Precision Agriculture</span>
+        </div>
+
+        <hr class="divider">
+        <p class="sub-heading">Career timeline</p>
+        <div class="timeline">
+          <div class="tl-item"><div class="tl-year">2023 &ndash; present</div><div class="tl-label">Research Professor (Peneliti Ahli Utama)</div><div class="tl-place">Research Center for Photonics-BRIN</div></div>
+          <div class="tl-item"><div class="tl-year">2022 &ndash; 2023</div><div class="tl-label">Senior Researcher (Peneliti Ahli Madya)</div><div class="tl-place">Research Center for Photonics-BRIN</div></div>
+          <div class="tl-item"><div class="tl-year">2016 &ndash; 2021</div><div class="tl-label">Senior Researcher (Peneliti Ahli Madya)</div><div class="tl-place">Research Center for Physics, LIPI</div></div>
+          <div class="tl-item"><div class="tl-year">2014 &ndash; 2016</div><div class="tl-label">Junior Researcher (Peneliti Ahli Muda)</div><div class="tl-place">Research Center for Informatics, LIPI</div></div>
+          <div class="tl-item"><div class="tl-year">2006 &ndash; 2013</div><div class="tl-label">Research Assistant (Peneliti Ahli Pertama)</div><div class="tl-place">Research Center for Informatics, LIPI</div></div>
+          <div class="tl-item"><div class="tl-year">2003 &ndash; 2004</div><div class="tl-label">R&amp;D Staff</div><div class="tl-place">PT. LG Electronics Display Devices Indonesia</div></div>
+        </div>
+
+        <hr class="divider">
+        <p class="sub-heading">Education</p>
+        <div class="timeline">
+          <div class="tl-item"><div class="tl-year">Ph.D. &middot; 2013</div><div class="tl-label">Control System &mdash; &ldquo;Robust Repetitive Control and its Applications&rdquo;</div><div class="tl-place">Swinburne University of Technology, Hawthorn, Australia</div></div>
+          <div class="tl-item"><div class="tl-year">M.Eng. &middot; 2009</div><div class="tl-label">Sensor System and Signal Processing</div><div class="tl-place">University of Adelaide, Australia</div></div>
+          <div class="tl-item"><div class="tl-year">B.Eng. &middot; 2003</div><div class="tl-label">Electrical Engineering</div><div class="tl-place">Gadjah Mada University, Indonesia</div></div>
+        </div>
+      </div>
+
+      <!-- RESEARCH TOPICS 2026 -->
+      <div class="section" id="sec-topik">
+        <h2 class="section-title">Research Topics 2026</h2>
+        <p class="section-sub">Open for S1 (BSc) / S2 (MSc) / S3 (PhD) students. Contact: edik004@brin.go.id</p>
+        <div class="topik-grid">
+          <div class="topik-card">
+            <div class="tc-num">Topic 01 &mdash; 2026</div>
+            <h3>AI-Enhanced Optical Sensing</h3>
+            <div class="tc-sub">Intelligent Processing of Photonics Data</div>
+            <span class="tc-level">S1 (BSc) / S2 (MSc) / S3 (PhD)</span>
+            <div class="tc-section"><div class="tc-section-label">Photonics Data</div><div class="tc-tag-wrap"><span class="tc-tag">Optical images (RGB, microscopy, hyperspectral)</span><span class="tc-tag">Spectroscopy (FTIR, Raman, NIR, LSPR)</span><span class="tc-tag">Interferometry &amp; LiDAR</span><span class="tc-tag">Distributed sensing (FBG, DAS)</span></div></div>
+            <div class="tc-section"><div class="tc-section-label">Role of AI</div><div class="tc-tag-wrap"><span class="tc-tag">Regression: physical parameter estimation</span><span class="tc-tag">Classification: material identification</span><span class="tc-tag">Denoising &amp; signal enhancement</span><span class="tc-tag">Feature extraction</span><span class="tc-tag">Physics-informed &amp; data-efficient learning</span></div></div>
+          </div>
+          <div class="topik-card">
+            <div class="tc-num">Topic 02 &mdash; 2026</div>
+            <h3>Precision Control Systems</h3>
+            <div class="tc-sub">Learning, Robust, and Safety &mdash; Advanced Control for High-Accuracy and Disturbance Rejection</div>
+            <span class="tc-level">S1 (BSc) / S2 (MSc) / S3 (PhD)</span>
+            <div class="tc-section"><div class="tc-section-label">Control Objectives</div><div class="tc-tag-wrap"><span class="tc-tag">Model-based &amp; data-driven high-precision</span><span class="tc-tag">Periodic &amp; aperiodic disturbance rejection</span><span class="tc-tag">Compensation of nonlinear uncertainties</span><span class="tc-tag">Integrated precision and safety</span></div></div>
+            <div class="tc-section"><div class="tc-section-label">Modern Approaches</div><div class="tc-tag-wrap"><span class="tc-tag">Adaptive &amp; robust control</span><span class="tc-tag">Repetitive &amp; iterative learning</span><span class="tc-tag">Fractional-order control</span><span class="tc-tag">ML/DL-augmented models</span><span class="tc-tag">Control barrier functions</span></div></div>
+          </div>
+          <div class="topik-card">
+            <div class="tc-num">Topic 03 &mdash; 2026</div>
+            <h3>ML-Based Precision Agriculture</h3>
+            <div class="tc-sub">Agricultural Image and Spectral Data Analysis</div>
+            <span class="tc-level">S1 (BSc) / S2 (MSc)</span>
+            <div class="tc-section"><div class="tc-section-label">Focus Areas</div><div class="tc-tag-wrap"><span class="tc-tag">Plant disease monitoring (image-based)</span><span class="tc-tag">Product quality grading (image &amp; spectrum)</span></div></div>
+            <div class="tc-section"><div class="tc-section-label">Key Approaches</div><div class="tc-tag-wrap"><span class="tc-tag">ML for classification &amp; regression</span><span class="tc-tag">Transformer-based representation learning</span><span class="tc-tag">Few-shot &amp; self-supervised learning</span></div></div>
+            <div class="tc-section"><div class="tc-section-label">Data Types</div><div class="tc-tag-wrap"><span class="tc-tag">Field &amp; product images</span><span class="tc-tag">FTIR-NIR spectral data</span></div></div>
+          </div>
+          <div class="topik-card">
+            <div class="tc-num">Topic 04 &mdash; 2026</div>
+            <h3>Edge ML for Precision Agriculture</h3>
+            <div class="tc-sub">Real-Time and Deployment-Oriented Intelligent Systems</div>
+            <span class="tc-level">S1 (BSc) / S2 (MSc)</span>
+            <div class="tc-section"><div class="tc-section-label">Focus Areas</div><div class="tc-tag-wrap"><span class="tc-tag">Real-time plant disease monitoring</span><span class="tc-tag">On-site agricultural product quality grading</span></div></div>
+            <div class="tc-section"><div class="tc-section-label">Edge Devices</div><div class="tc-tag-wrap"><span class="tc-tag">NVIDIA Jetson (Orin NX)</span><span class="tc-tag">Raspberry Pi + AI accelerator</span><span class="tc-tag">Google Coral</span></div></div>
+            <div class="tc-section"><div class="tc-section-label">Key Approaches</div><div class="tc-tag-wrap"><span class="tc-tag">MobileNet-Lite, EfficientNet-Lite</span><span class="tc-tag">YOLOv8-nano / YOLOv11-nano</span><span class="tc-tag">1D-CNN for spectral data</span><span class="tc-tag">Compact transformer models</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PUBLICATIONS -->
+      <div class="section" id="sec-publications">
+        <h2 class="section-title">Selected Publications</h2>
+        <p class="section-sub">Full list: <a href="http://scholar.google.com.au/citations?user=p16rGPgAAAAJ&hl=en" target="_blank">Google Scholar</a> &middot; 150+ publications &middot; h-index 14 &middot; 820+ citations</p>
+        <div class="pub-brin"><em>E. Kurniawan</em>, E. B. Pratiwi, S. Hafiz, P. Purwowibowo, S. Wijonarko, et al., &ldquo;Enhanced Fractional Multi-Period Repetitive Controller with Fractional Time-Delay for High-Precision Servo Systems,&rdquo; <span class="journal">Journal of Vibration and Control</span>, 2026.</div>
+        <div class="pub-brin"><em>E. Kurniawan</em>, E. B. Pratiwi, S. Hafiz, P. Purwowibowo, S. Wijonarko, et al., &ldquo;Odd-Harmonic Repetitive Controller with Extreme Learning Machine Approach for Precise Tracking and Robust Disturbance Rejection in Servo Systems,&rdquo; <span class="journal">Engineering Research Express</span>, 8(8), 085309, 2026.</div>
+        <div class="pub-brin">A. Rahmatillah, A. S. Aisjah, Suyanto, <em>E. Kurniawan</em>, &ldquo;Enhanced General Modified Repetitive Control Design for 1-DOF Lower Limb Exoskeleton,&rdquo; <span class="journal">Journal of Robotics and Control</span>, 7(2), 3598&ndash;3610, 2026.</div>
+        <div class="pub-brin">R. Edward, Rahmadwati, M. A. Muslim, A. Rahmatillah, <em>E. Kurniawan</em>, &ldquo;Safe Periodic Tracking via a Repetitive Controller with Control Barrier Function Constraints: A Servomotor Simulation Study,&rdquo; <span class="journal">International Journal of Robotics and Control Systems</span>, 6(1), 92&ndash;114, 2026.</div>
+        <div class="pub-brin">N. Adiguna Nugraha, N. Widyati, N. M. N. B. Surya Dewi, R. Wardoyo, I. W. E. Dharmawan, I. N. Surana, S. Nuralifah, D. S. Adillah, A. N. Asyah, <em>E. Kurniawan</em>, and F. Sidik, &ldquo;Mangrove species identification using Convolutional Neural Network,&rdquo; <span class="journal">Taiwania</span>, vol. 70, no. 2, pp. 402&ndash;402, Mar. 2025.</div>
+        <div class="pub-brin">U. S. Ibadurohman, <em>E. Kurniawan</em>, A. Az-Zukhruf, E. B. Pratiwi, H. Adinanta and M. Yunianto, &ldquo;Comparative Analysis of Deep Learning Models for Accurate Detection of Rice Leaf Diseases,&rdquo; <span class="journal">2024 IEEE ICSMech</span>, Yogyakarta, 2024, pp. 123&ndash;128.</div>
+        <div class="pub-brin"><em>E. Kurniawan</em>, A. M. Burrohman, P. Purwowibowo, S. Wijonarko, T. Maftukhah, H. A. Prakosa, D. Rustandi, E. B. Pratiwi, A. Az-Zukhruf, &ldquo;Discrete-Time Design of Fractional Delay-Based Repetitive Controller with Sliding Mode Approach for Uncertain Linear Systems with Multiple Periodic Signals,&rdquo; <span class="journal">Fractal and Fractional</span>, 2025, 9(1):41.</div>
+        <div class="pub-brin"><em>E. Kurniawan</em>, H. Wang, J. A. Prakosa, P. Purwowibowo, E. B. Pratiwi, &ldquo;An Improved Repetitive Controller with Fractional Time-Delay for Discrete-Time Linear Systems: Synthesis and Comparison Study,&rdquo; <span class="journal">ISA Transactions</span>, 146, 511&ndash;527, 2024.</div>
+        <div class="pub-brin"><em>E. Kurniawan</em>, E. B. Pratiwi, H. Adinanta, Suryadi, J. A. Prakosa, P. Purwowibowo, S. Wijonarko, T. Maftukhah, D. Rustandi, Mahmudi, &ldquo;A Performance Evaluation of Repetitive and Iterative Learning Algorithms for Periodic Tracking Control of FES System,&rdquo; <span class="journal">Journal of Robotics and Control (JRC)</span>, Vol. 5, No. 1, pp. 205&ndash;216, 2024.</div>
+        <div class="pub-brin"><em>E. Kurniawan</em>, H. Wang, H. Septanto, et al., &ldquo;Design and analysis of higher-order sliding mode controller for uncertain linear systems with time-varying periodic disturbances,&rdquo; <span class="journal">Trans. Inst. Measurement and Control</span>, 2023.</div>
+        <div class="pub-brin"><em>Edi Kurniawan</em>, E. B. Pratiwi, H. G. Harno, et al., &ldquo;Low-order repetitive control for linear systems perturbed by band-limited periodic disturbances,&rdquo; <span class="journal">Proc. Inst. Mech. Eng., Part I: J. Systems and Control Engineering</span>, 2023.</div>
+        <div class="pub-brin"><em>E. Kurniawan</em>, H. Adinanta, S. Suryadi, et al., &ldquo;Deep neural network-based physical distancing monitoring system with TensorRT optimization,&rdquo; <span class="journal">Int. J. Advances in Intelligent Informatics</span>, vol. 8, pp. 185&ndash;198, 2022.</div>
+        <div class="pub-brin"><em>E. Kurniawan</em>, H. Harno, and H. Adinanta, &ldquo;High-order repetitive model reference controller for linear systems with uncertain periodic references and disturbances,&rdquo; <span class="journal">Int. J. Systems Science</span>, vol. 53, 2022.</div>
+        <div class="pub-brin"><em>E. Kurniawan</em>, H. Harno, H. Wang, et al., &ldquo;Robust adaptive repetitive controller for unknown linear systems with odd-harmonic periodic disturbances,&rdquo; <span class="journal">Science China Information Sciences</span>, vol. 65, 2022.</div>
+        <div class="pub-brin"><em>E. Kurniawan</em>, J. Prakosa, H. Wang, et al., &ldquo;Design of fractional-order odd-harmonics repetitive controller for discrete-time linear systems with experimental validations,&rdquo; <span class="journal">Sensors</span>, vol. 22, 2022.</div>
+        <div class="pub-brin"><em>E. Kurniawan</em>, H. Wang, B. H. Sirenden, J. A. Prakosa, H. Adinanta, and S. Suryadi, &ldquo;Discrete-time modified repetitive sliding mode control for uncertain linear systems,&rdquo; <span class="journal">Int. J. Adaptive Control and Signal Processing</span>, vol. 35, pp. 2245&ndash;2258, 2021.</div>
+        <div class="pub-brin"><em>E. Kurniawan</em>, H. Harno, S. Wijonarko, et al., &ldquo;Variable-structure repetitive controller for discrete-time linear systems with multiple-period exogenous signals,&rdquo; <span class="journal">Int. J. Applied Mathematics and Computer Science</span>, vol. 30, pp. 207&ndash;218, 2020.</div>
+        <div class="pub-brin"><em>E. Kurniawan</em>, Z. Cao, and Z. Man, &ldquo;Design of robust repetitive control with time-varying sampling periods,&rdquo; <span class="journal">IEEE Trans. on Industrial Electronics</span>, vol. 61, pp. 2834&ndash;2841, 2014.</div>
+        <div class="pub-brin"><em>E. Kurniawan</em>, Z. Cao, and Z. Man, &ldquo;Digital design of adaptive repetitive control of linear systems with time-varying periodic disturbances,&rdquo; <span class="journal">IET Control Theory Appl.</span>, vol. 08, pp. 1995&ndash;2003, 2014.</div>
+      </div>
+
+      <!-- RESEARCH -->
+      <div class="section" id="sec-research">
+        <h2 class="section-title">Research Interests</h2>
+        <p class="section-sub">Spanning advanced control theory, photonics sensing, and AI-driven engineering systems.</p>
+        <div class="res-grid">
+          <div class="res-card"><div class="res-card-header"><i class="ti ti-adjustments-alt res-icon"></i><h3>Advanced Control Systems</h3></div><div class="res-section-label">Methods</div><div class="res-tag-wrap"><span class="res-tag">SMC / NTSMC</span><span class="res-tag">Repetitive Control</span><span class="res-tag">Fractional-order</span><span class="res-tag">ELM-based adaptive</span><span class="res-tag">Iterative learning</span></div><div class="res-section-label">Applications</div><div class="res-tag-wrap"><span class="res-tag">Servo-based systems</span></div></div>
+          <div class="res-card"><div class="res-card-header"><i class="ti ti-wave-sine res-icon"></i><h3>Photonics &amp; Fiber Optic Sensing</h3></div><div class="res-section-label">Sensing</div><div class="res-tag-wrap"><span class="res-tag">DAS</span><span class="res-tag">LSPR</span><span class="res-tag">LiDAR</span><span class="res-tag">FBG</span></div><div class="res-section-label">AI Integration</div><div class="res-tag-wrap"><span class="res-tag">Event classification</span><span class="res-tag">Parameter estimation</span><span class="res-tag">Physics-informed ML</span></div></div>
+          <div class="res-card"><div class="res-card-header"><i class="ti ti-cpu res-icon"></i><h3>Deep Learning &amp; Computer Vision</h3></div><div class="res-section-label">Frameworks</div><div class="res-tag-wrap"><span class="res-tag">YOLOv8 / YOLOv11</span><span class="res-tag">TensorRT</span><span class="res-tag">CUDA</span><span class="res-tag">TensorFlow</span></div><div class="res-section-label">Applications</div><div class="res-tag-wrap"><span class="res-tag">Object detection</span><span class="res-tag">AI inverse design (PICs)</span><span class="res-tag">Coffee grading</span><span class="res-tag">Plant disease</span></div></div>
+          <div class="res-card"><div class="res-card-header"><i class="ti ti-plant res-icon"></i><h3>Precision Agriculture</h3></div><div class="res-section-label">Approaches</div><div class="res-tag-wrap"><span class="res-tag">Spectroscopy (FTIR, NIR)</span><span class="res-tag">Hyperspectral imaging</span><span class="res-tag">Edge ML deployment</span><span class="res-tag">Transformer models</span></div></div>
+        </div>
+      </div>
+
+      <!-- AWARDS -->
+      <div class="section" id="sec-awards">
+        <h2 class="section-title">Awards &amp; Fellowships</h2>
+        <div class="award-list">
+          <div class="award-item"><i class="ti ti-trophy"></i><div><h3>BRIN Best Researcher Award 2023</h3><p>For research achievements in 2022, representing the Nanotechnology and Materials Research Organization</p></div></div>
+          <div class="award-item"><i class="ti ti-star"></i><div><h3>Asian Science Diplomat (ASD) 2021</h3><p>ASEAN Science Diplomats Assembly &mdash; recognized for contributions to science diplomacy</p></div></div>
+          <div class="award-item"><i class="ti ti-plane"></i><div><h3>Fulbright Research Scholar 2018</h3><p>Northern Arizona University, Arizona, USA</p></div></div>
+          <div class="award-item"><i class="ti ti-building"></i><div><h3>US-ASEAN Science &amp; Technology Fellow 2016/2017</h3><p>Placed at Menristekdikti, Jakarta &mdash; contributing to STI policy-making for the ASEAN region</p></div></div>
+          <div class="award-item"><i class="ti ti-atom"></i><div><h3>Visiting Research Fellow &mdash; CERN 2014</h3><p>European Organization for Nuclear Research, Geneva, Switzerland</p></div></div>
+          <div class="award-item"><i class="ti ti-school"></i><div><h3>Visiting Fellow &mdash; TU Berlin &amp; RMIT 2015</h3><p>Technische Universit&auml;t Berlin (Germany) and Royal Melbourne Institute of Technology (Australia)</p></div></div>
+        </div>
+      </div>
+
+      <!-- SUPERVISION -->
+      <div class="section" id="sec-supervision">
+        <h2 class="section-title">Student Supervision</h2>
+        <p class="section-sub">Active and past student supervision. Open for joint supervision under BRIN Degree by Research Program and any other schemes.</p>
+
+        <p class="sub-heading">Doctoral (S3)</p>
+        <table class="student-table">
+          <thead><tr><th>Name</th><th>University</th><th>Year</th><th>Thesis Title</th></tr></thead>
+          <tbody>
+            <tr><td>Samsul Hafiz</td><td>Fisika MIPA, Universitas Indonesia</td><td>2022&ndash;2025</td><td>Pengembangan Metode Penyeimbang Tegangan Sel Baterai Terhubung Seri Berbasis Metode Parallel Switched Capacitor</td></tr>
+            <tr><td>Akif Rahmatillah</td><td>Teknik Fisika, ITS</td><td>2024&ndash;now</td><td>Desain Finite Time Generalized Feedback Repetitive Controller pada Pengendalian Lower Limb Exoskeleton 1-DOF</td></tr>
+          </tbody>
+        </table>
+
+        <p class="sub-heading">Master (S2)</p>
+        <table class="student-table">
+          <thead><tr><th>Name</th><th>University</th><th>Year</th><th>Thesis Title</th></tr></thead>
+          <tbody>
+            <tr><td>Ronald Eric</td><td>Universitas Airlangga</td><td>2022&ndash;2023</td><td>Pemodelan Sistem Kontrol 2-DOF Lower Limb Robotic Exoskeleton (LLRE) Menggunakan Metode Kontrol High Order Repetitive Control</td></tr>
+            <tr><td>Enggar B. Pratiwi</td><td>Fisika MIPA, Universitas Indonesia</td><td>2023&ndash;2025</td><td>Repetitive Control Berbasis Extreme Learning Machine (ELM) untuk Pelacakan dan Gangguan Sinyal Periodik dengan Ketidakpastian Frekuensi</td></tr>
+            <tr><td>Ronald Edward</td><td>Teknik Elektro, Universitas Brawijaya</td><td>2024&ndash;2025</td><td>Perancangan Metode Repetitive Controller dengan Control Barrier Function untuk Penjejakan Sinyal Periodik</td></tr>
+          </tbody>
+        </table>
+
+        <p class="sub-heading">Bachelor (S1)</p>
+        <table class="student-table">
+          <thead><tr><th>Name</th><th>University</th><th>Year</th><th>Thesis Title</th></tr></thead>
+          <tbody>
+            <tr><td>Nizarrachman Hadi</td><td>UIN Syarif Hidayatullah Jakarta</td><td>2017</td><td>Analysis of Repetitive Control System for Disturbance Rejection with Multiple Uncorrelated Frequencies</td></tr>
+            <tr><td>Nurhanifiyah Azura</td><td>UIN Syarif Hidayatullah Jakarta</td><td>2017</td><td>Analysis of Repetitive Control System for Tracking Reference with Multiple Uncorrelated Frequencies</td></tr>
+            <tr><td>Fawzan G. A. K. Bawahab</td><td>UIN Syarif Hidayatullah Jakarta</td><td>2018</td><td>Performance Evaluation and Mathematical Analysis of Direct Sequence and Frequency Hopping Spread Spectrum Systems</td></tr>
+            <tr><td>Qalisha Putri Syahna</td><td>UIN Syarif Hidayatullah Jakarta</td><td>2018</td><td>Analysis of Two-Axis Camera Gimbal Tracking Control with LQR Control Method</td></tr>
+            <tr><td>Fani Sasmita Simbolon</td><td>Universitas Sumatera Utara &ndash; Medan</td><td>2020</td><td>Analisis dan Simulasi Sistem Kontrol Proporsional Derivatif dan Proporsional Integral Derivatif Menggunakan Xcos Scilab</td></tr>
+            <tr><td>Regina Sri Rezeki Simbolon</td><td>Universitas Sumatera Utara &ndash; Medan</td><td>2020</td><td>Analisis dan Simulasi Sistem Kontrol PI dan PID Menggunakan Xcos Scilab</td></tr>
+            <tr><td>Dimas Widianto Ramadhan</td><td>UIN Syarif Hidayatullah Jakarta</td><td>2021</td><td>Pola Desain dan Analisis Simulasi Iterative Learning Control untuk Sistem Linier Fase Minimum dan Non-Minimum Menggunakan Python</td></tr>
+            <tr><td>Daniel Cahya Saputra</td><td>Universitas Gadjah Mada</td><td>2022</td><td>Desain Teknik Kendali Repetitive Controller untuk Aplikasi 3 DOF Helikopter</td></tr>
+            <tr><td>Fariz Bagus Suryawan</td><td>UIN Syarif Hidayatullah Jakarta</td><td>2022</td><td>Studi Analisis Simulasi Feedback Linearization Model Predictive Control Pada Quadcopter Menggunakan Python</td></tr>
+            <tr><td>Amaliyah Az-Zukhruf</td><td>UIN Maulana Malik Ibrahim Malang</td><td>2023</td><td>Design and Simulation Notch Filter-Based Repetitive Controller (RC)</td></tr>
+            <tr><td>Ronald Edward</td><td>Universitas Brawijaya Malang</td><td>2024</td><td>Pola Desain dan Analisis Simulasi Repetitive Control untuk Sistem Linear dengan Menggunakan Python</td></tr>
+            <tr><td>Jusvita</td><td>UIN Syarif Hidayatullah Jakarta</td><td>2025</td><td>Deteksi Kualitas Benih Kedelai Berbasis Deep Learning</td></tr>
+            <tr><td>Umar Shidiq Ibadurrohman</td><td>Universitas Sebelas Maret Surakarta</td><td>2025</td><td>Sistem Deteksi Penyakit Daun Padi Berbasis Deep Learning dengan Menggunakan Algoritma YOLOv6</td></tr>
+            <tr><td>Fitria Rozi</td><td>Universitas Andalas</td><td>2025</td><td>Implementasi Sistem Klasifikasi Penyakit Daun Tomat Berbasis Deep Learning pada Raspberry Pi 5</td></tr>
+          </tbody>
+        </table>
+
+        <p class="sub-heading">Research Assistant (RA)</p>
+        <table class="student-table">
+          <thead><tr><th>Name</th><th>Level</th><th>University</th><th>Year</th><th>Title</th></tr></thead>
+          <tbody>
+            <tr><td>Nurhanifiyah Azura</td><td>RA (S1)</td><td>UIN Syarif Hidayatullah Jakarta</td><td>2018</td><td>Sliding Mode Repetitive Controller for a Plant with Time-Varying Sampling Times</td></tr>
+            <tr><td>Enggar B. Pratiwi</td><td>RA (S1)</td><td>UIN Syarif Hidayatullah Jakarta</td><td>2022</td><td>Discrete-Time Design of Dual Internal Model-Based Repetitive Control Systems</td></tr>
+            <tr><td>Enggar B. Pratiwi</td><td>RA (S2)</td><td>Fisika MIPA, Universitas Indonesia</td><td>2023&ndash;2025</td><td>Repetitive Control Berbasis ELM untuk Pelacakan dan Gangguan Sinyal Periodik dengan Ketidakpastian Frekuensi</td></tr>
+            <tr><td>Amaliyah Az-Zukhruf</td><td>RA (S1)</td><td>Prodi Fisika, UIN Malang</td><td>2024</td><td>Design and Simulation Notch Filter-Based Repetitive Controller (RC)</td></tr>
+          </tbody>
+        </table>
+
+        <p class="sub-heading">Postdoctoral (PD) / Visiting Researcher (VR)</p>
+        <table class="student-table">
+          <thead><tr><th>Name</th><th>Type</th><th>University</th><th>Year</th><th>Title</th></tr></thead>
+          <tbody>
+            <tr><td>Dr. Geetika Srivastava</td><td>VR</td><td>Dr. Rammanohar Lohia Avadh University</td><td>2022</td><td>Real Time Implementation of Electromyography Based Diabetic Sensorimotor Polyneuropathy Severity Classifier Using Adaptive Neuro-Fuzzy Inference System</td></tr>
+            <tr><td>Mr. Sandeep Kumar Pandey</td><td>VR</td><td>Dr. Rammanohar Lohia Avadh University</td><td>2022</td><td>Optimized Hardware Implementation of Diabetic Sensorimotor Polyneuropathy Severity Classifier using FPGA</td></tr>
+            <tr><td>Dr. Azka Muji Burohman</td><td>PD</td><td>University of Groningen</td><td>2023/2024</td><td>Data-driven reduced-order modelling for predictive digital twin</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ACTIVITIES -->
+      <div class="section" id="sec-activities">
+        <h2 class="section-title">Professional Activities</h2>
+        <p class="section-sub">Reviewer for more than 35 reputable international journals indexed in Web of Science, editorial board member, and organizing committee for international conferences.</p>
+        <p class="sub-heading">IEEE</p>
+        <div class="reviewer-grid">
+          <div class="reviewer-pill"><i class="ti ti-file-check"></i><span>IEEE Trans. on Industrial Electronics</span></div>
+          <div class="reviewer-pill"><i class="ti ti-file-check"></i><span>IEEE Trans. on Systems, Man, and Cybernetics: Systems</span></div>
+          <div class="reviewer-pill"><i class="ti ti-file-check"></i><span>IEEE/ASME Trans. on Mechatronics</span></div>
+          <div class="reviewer-pill"><i class="ti ti-file-check"></i><span>IEEE Trans. on Vehicular Technology</span></div>
+          <div class="reviewer-pill"><i class="ti ti-file-check"></i><span>IEEE Access</span></div>
+          <div class="reviewer-pill"><i class="ti ti-file-check"></i><span>IEEE J. Emerging and Selected Topics in Industrial Electronics</span></div>
+          <div class="reviewer-pill"><i class="ti ti-file-check"></i><span>IEEE Trans. on Circuits and Systems II: Express Briefs</span></div>
+          <div class="reviewer-pill"><i class="ti ti-file-check"></i><span>IEEE Trans. on Automation Science and Engineering</span></div>
+          <div class="reviewer-pill"><i class="ti ti-file-check"></i><span>IEEE Trans. on Cybernetics</span></div>
+          <div class="reviewer-pill"><i class="ti ti-file-check"></i><span>IEEE Trans. on Transportation Electrification</span></div>
+          <div class="reviewer-pill"><i class="ti ti-file-check"></i><span>IEEE Trans. on Instrumentation and Measurement</span></div>
+        </div>
+        <p class="sub-heading">Elsevier</p>
+        <div class="reviewer-grid">
+          <div class="reviewer-pill"><i class="ti ti-file-check"></i><span>Computers and Electrical Engineering</span></div>
+          <div class="reviewer-pill"><i class="ti ti-file-check"></i><span>Applied Mathematics and Computation</span></div>
+          <div class="reviewer-pill"><i class="ti ti-file-check"></i><span>Mechanical Systems and Signal Processing</span></div>
+          <div class="reviewer-pill"><i class="ti ti-file-check"></i><span>Control Engineering Practice</span></div>
+          <div class="reviewer-pill"><i class="ti ti-file-check"></i><span>ISA Transactions</span></div>
+        </div>
+        <p class="sub-heading">MDPI</p>
+        <div class="reviewer-grid">
+          <div class="reviewer-pill"><i class="ti ti-file-check"></i><span>Mathematics</span></div>
+          <div class="reviewer-pill"><i class="ti ti-file-check"></i><span>Fractal and Fractional</span></div>
+          <div class="reviewer-pill"><i class="ti ti-file-check"></i><span>Electronics</span></div>
+          <div class="reviewer-pill"><i class="ti ti-file-check"></i><span>Applied Sciences</span></div>
+          <div class="reviewer-pill"><i class="ti ti-file-check"></i><span>Machines</span></div>
+          <div class="reviewer-pill"><i class="ti ti-file-check"></i><span>Actuators</span></div>
+        </div>
+        <p class="sub-heading">Wiley &amp; Sons</p>
+        <div class="reviewer-grid">
+          <div class="reviewer-pill"><i class="ti ti-file-check"></i><span>Int. J. of Robust and Nonlinear Control</span></div>
+          <div class="reviewer-pill"><i class="ti ti-file-check"></i><span>Asian Journal of Control</span></div>
+          <div class="reviewer-pill"><i class="ti ti-file-check"></i><span>Int. J. of Adaptive Control and Signal Processing</span></div>
+          <div class="reviewer-pill"><i class="ti ti-file-check"></i><span>IET Control Theory &amp; Applications</span></div>
+        </div>
+        <p class="sub-heading">Taylor &amp; Francis</p>
+        <div class="reviewer-grid">
+          <div class="reviewer-pill"><i class="ti ti-file-check"></i><span>Int. J. of Systems Science</span></div>
+          <div class="reviewer-pill"><i class="ti ti-file-check"></i><span>Automatika</span></div>
+          <div class="reviewer-pill"><i class="ti ti-file-check"></i><span>Journal of the Chinese Institute of Engineers</span></div>
+        </div>
+        <p class="sub-heading">Others</p>
+        <div class="reviewer-grid">
+          <div class="reviewer-pill"><i class="ti ti-file-check"></i><span>Nonlinear Dynamics (Springer)</span></div>
+          <div class="reviewer-pill"><i class="ti ti-file-check"></i><span>Neural Computing and Applications (Springer)</span></div>
+          <div class="reviewer-pill"><i class="ti ti-file-check"></i><span>Int. J. of Aerospace Engineering (Hindawi)</span></div>
+          <div class="reviewer-pill"><i class="ti ti-file-check"></i><span>Nonlinear Engineering (De Gruyter)</span></div>
+          <div class="reviewer-pill"><i class="ti ti-file-check"></i><span>J. of Systems and Control Engineering (Sage)</span></div>
+          <div class="reviewer-pill"><i class="ti ti-file-check"></i><span>Engineering Computations (Emerald)</span></div>
+        </div>
+        <hr class="divider">
+        <p class="sub-heading">Editorial roles</p>
+        <div class="award-list">
+          <div class="award-item"><i class="ti ti-edit"></i><div><h3>Editorial Board &mdash; IJRS (2026&ndash;now)</h3><p>International Journal of Robotics and Simulation</p></div></div>
+          <div class="award-item"><i class="ti ti-edit"></i><div><h3>Guest Editor &mdash; MDPI Actuators (2025)</h3><p>Feature Papers in Actuators for Surface Vehicles section</p></div></div>
+          <div class="award-item"><i class="ti ti-edit"></i><div><h3>Guest Editor &mdash; IET Control Theory and Applications (2024)</h3><p>Wiley &amp; Sons</p></div></div>
+        </div>
+      </div>
+
+      <!-- DATASETS -->
+      <div class="section" id="sec-datasets">
+        <h2 class="section-title">Datasets &amp; Open Resources</h2>
+        <div class="dataset-item"><i class="ti ti-leaf"></i><div><h3>Mangrove Budeng Bali 2023 Dataset</h3><p>Mangrove leaf dataset from Desa Budeng, Jembrana, Bali, comprising 11 species. In collaboration with Dr. Frida Sidik. Published on <a href="https://hdl.handle.net/20.500.12690/RIN/IZ1SNL" target="_blank" style="color:var(--accent)">RIN Dataverse</a>.</p></div></div>
+        <div class="dataset-item"><i class="ti ti-coffee"></i><div><h3>Coffee Grading Image Dataset <span style="font-size:10px;color:var(--amber);font-weight:500">(In progress)</span></h3><p>AI-based coffee bean quality grading. In collaboration with research group at Research Center for Photonics-BRIN.</p></div></div>
+        <div class="dataset-item"><i class="ti ti-wave-sine"></i><div><h3>LSPR Sensing Dataset <span style="font-size:10px;color:var(--amber);font-weight:500">(In progress)</span></h3><p>Localized Surface Plasmon Resonance for biosensing &amp; material characterization. In collaboration with research group at Research Center for Photonics-BRIN.</p></div></div>
+        <div class="dataset-item"><i class="ti ti-antenna"></i><div><h3>DAS Event Classification Dataset <span style="font-size:10px;color:var(--amber);font-weight:500">(In progress)</span></h3><p>Distributed Acoustic Sensing for fiber optic event detection. In collaboration with research group at Research Center for Photonics-BRIN.</p></div></div>
+      </div>
+
+      <!-- CV & CONTACT -->
+      <div class="section" id="sec-cv">
+        <h2 class="section-title">CV &amp; Contact</h2>
+        <p class="section-sub">For research collaborations, student supervision, editorial matters, or teaching inquiries.</p>
+        <a class="cv-btn" href="#"><i class="ti ti-download"></i> Download CV (PDF)</a>
+
+        <hr class="divider">
+        <p class="sub-heading">Contact</p>
+        <div class="contact-grid" style="margin-bottom:1rem">
+          <div class="contact-card"><a href="mailto:edik004@brin.go.id" style="display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit"><i class="ti ti-mail"></i><div><div class="cl">Email (institutional)</div><div class="cv">edik004@brin.go.id</div></div></a></div>
+          <div class="contact-card"><a href="mailto:edik004@pm.me" style="display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit"><i class="ti ti-mail"></i><div><div class="cl">Email (personal)</div><div class="cv">edik004@pm.me</div></div></a></div>
+          <div class="contact-card"><i class="ti ti-building"></i><div><div class="cl">Address</div><div class="cv">KST BJ Habibie, Serpong 15314</div></div></div>
+        </div>
+
+        <hr class="divider">
+        <p class="sub-heading">Research profiles</p>
+        <div class="contact-grid" style="margin-bottom:1rem">
+          <div class="contact-card"><a href="https://orcid.org/0000-0002-6198-9217" target="_blank" style="display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit"><i class="ti ti-id"></i><div><div class="cl">ORCID</div><div class="cv">0000-0002-6198-9217</div></div></a></div>
+          <div class="contact-card"><a href="http://scholar.google.com.au/citations?user=p16rGPgAAAAJ&hl=en" target="_blank" style="display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit"><i class="ti ti-school"></i><div><div class="cl">Google Scholar</div><div class="cv">Edi Kurniawan</div></div></a></div>
+          <div class="contact-card"><a href="http://www.scopus.com/authid/detail.url?authorId=59685419300" target="_blank" style="display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit"><i class="ti ti-topology-star"></i><div><div class="cl">Scopus Author ID</div><div class="cv">59685419300</div></div></a></div>
+          <div class="contact-card"><a href="http://www.webofscience.com/wos/author/record/J-9413-2019" target="_blank" style="display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit"><i class="ti ti-file-certificate"></i><div><div class="cl">WoS Researcher ID</div><div class="cv">J-9413-2019</div></div></a></div>
+          <div class="contact-card"><a href="https://ieeexplore.ieee.org/author/38239011200" target="_blank" style="display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit"><i class="ti ti-antenna-bars-5"></i><div><div class="cl">IEEEXplore</div><div class="cv">38239011200</div></div></a></div>
+          <div class="contact-card"><a href="https://www.researchgate.net/profile/Edi_Kurniawan" target="_blank" style="display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit"><i class="ti ti-users"></i><div><div class="cl">ResearchGate</div><div class="cv">Edi_Kurniawan</div></div></a></div>
+          <div class="contact-card"><a href="https://tinyurl.com/ekurniawan" target="_blank" style="display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit"><i class="ti ti-world"></i><div><div class="cl">Sivitas BRIN</div><div class="cv">tinyurl.com/ekurniawan</div></div></a></div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    &copy; 2026 Dr. Edi Kurniawan &middot; Research Center for Photonics-BRIN &middot; Built with <a href="https://pages.github.com" target="_blank">GitHub Pages</a>
+  </footer>
+
+  <script>
+    function go(id, el) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.site-nav nav a').forEach(a => a.classList.remove('active'));
+      document.getElementById('sec-' + id).classList.add('active');
+      el.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    setTimeout(() => {
+      document.getElementById('v-total').textContent = '1,247';
+      document.getElementById('v-unique').textContent = '834';
+      document.getElementById('v-today').textContent = '23';
+    }, 600);
+  </script>
+
+</body>
+</html>
