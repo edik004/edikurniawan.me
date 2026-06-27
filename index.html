@@ -56,7 +56,7 @@
       }
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: var(--font-sans); background: var(--bg); color: var(--text-primary); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    body { font-family: var(--font-sans); background: var(--bg); color: var(--text-primary); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
     .site-nav { border-bottom: 0.5px solid var(--border); position: sticky; top: 0; z-index: 100; background: var(--bg); backdrop-filter: blur(12px); }
     .site-nav-inner { display: flex; align-items: center; gap: 1.5rem; padding: 0.75rem 2rem; max-width: 1100px; margin: 0 auto; }
     .brand { font-size: 15px; font-weight: 600; color: var(--text-primary); letter-spacing: -0.02em; white-space: nowrap; }
@@ -64,7 +64,52 @@
     .site-nav nav a { font-size: 12px; color: var(--text-secondary); text-decoration: none; padding: 5px 10px; border-radius: var(--radius); cursor: pointer; transition: all 0.15s; white-space: nowrap; }
     .site-nav nav a:hover, .site-nav nav a.active { color: var(--text-primary); background: var(--bg-secondary); }
     .layout { display: grid; grid-template-columns: 230px minmax(0, 1fr); min-height: calc(100vh - 50px); max-width: 1100px; margin: 0 auto; }
-    @media (max-width: 768px) { .layout { grid-template-columns: 1fr; } .sidebar { border-right: none; border-bottom: 0.5px solid var(--border); position: static; } .site-nav-inner { flex-direction: column; gap: 8px; } .site-nav nav { justify-content: center; } }
+    @media (max-width: 768px) {
+      .layout { grid-template-columns: 1fr !important; display: flex !important; flex-direction: column !important; }
+      .sidebar {
+        border-right: none !important;
+        border-bottom: 0.5px solid var(--border);
+        position: static !important;
+        max-height: none !important;
+        overflow-y: visible !important;
+        padding: 1.25rem 1rem !important;
+      }
+      .sidebar-details { display: none; }
+      .sidebar-details.open { display: block; }
+      .sidebar-toggle {
+        display: flex; align-items: center; gap: 6px;
+        font-size: 11px; color: var(--accent); background: var(--accent-light);
+        border: 0.5px solid var(--border); border-radius: var(--radius);
+        padding: 6px 12px; cursor: pointer; margin-top: 0.75rem;
+        font-family: var(--font-sans); transition: all 0.15s;
+      }
+      .sidebar-toggle:hover { background: var(--border); }
+      .sidebar-toggle i { font-size: 14px; }
+      .site-nav-inner { flex-direction: column !important; gap: 8px; padding: 0.75rem 1rem !important; }
+      .site-nav nav {
+        overflow-x: auto; -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; width: 100%;
+        justify-content: flex-start !important;
+        flex-wrap: nowrap !important; gap: 1px;
+      }
+      .site-nav nav::-webkit-scrollbar { display: none; }
+      .site-nav nav a { flex-shrink: 0; font-size: 11px; padding: 4px 8px; }
+      .main { padding: 1.25rem 1rem !important; }
+      .section-title { font-size: 19px; }
+      .topik-grid { grid-template-columns: 1fr !important; }
+      .res-grid { grid-template-columns: 1fr !important; }
+      .sup-grid { grid-template-columns: 1fr !important; }
+      .reviewer-grid { grid-template-columns: 1fr !important; }
+      .contact-grid { grid-template-columns: 1fr !important; }
+      .student-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -1rem; padding: 0 1rem; }
+      .student-table { min-width: 600px; }
+      .about-bio { font-size: 13px; }
+      .pub-brin { font-size: 12px; }
+    }
+    @media (min-width: 769px) {
+      .sidebar-toggle { display: none !important; }
+      .sidebar-details { display: block !important; }
+    }
     .sidebar { padding: 2rem 1.5rem; border-right: 0.5px solid var(--border); position: sticky; top: 50px; height: fit-content; max-height: calc(100vh - 50px); overflow-y: auto; }
     .avatar-wrap { width: 100px; height: 100px; border-radius: 50%; overflow: hidden; background: var(--accent-light); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; border: 2px solid var(--border); }
     .avatar-wrap img { width: 100%; height: 100%; object-fit: cover; }
@@ -90,7 +135,7 @@
     .vbar-bg { background: var(--border); border-radius: 2px; height: 3px; margin-top: 2px; }
     .vbar { background: var(--accent); border-radius: 2px; height: 3px; }
     .visitor-powered { font-size: 9px; color: var(--text-tertiary); margin-top: 8px; }
-    .main { padding: 2rem 2.5rem; max-width: 800px; }
+    .main { padding: 2rem 2.5rem; max-width: 800px; overflow-wrap: break-word; }
     @media (max-width: 768px) { .main { padding: 1.5rem 1rem; } }
     .section { display: none; }
     .section.active { display: block; }
@@ -174,6 +219,7 @@
     .cv-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; border: 0.5px solid var(--border-hover); border-radius: var(--radius); font-size: 13px; font-weight: 500; color: var(--text-primary); background: var(--bg); cursor: pointer; text-decoration: none; margin-bottom: 1.25rem; transition: all 0.15s; }
     .cv-btn:hover { background: var(--bg-secondary); }
     .student-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 1.5rem; }
+    .student-table-wrap { width: 100%; }
     .student-table th { text-align: left; font-size: 10px; font-weight: 500; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.06em; padding: 8px 10px; border-bottom: 1px solid var(--border); }
     .student-table td { padding: 8px 10px; border-bottom: 0.5px solid var(--border); color: var(--text-secondary); vertical-align: top; }
     .student-table td:first-child { color: var(--text-primary); font-weight: 500; }
@@ -210,8 +256,13 @@
       </div>
       <h1>Dr. Edi Kurniawan</h1>
       <p class="title">S.T., M.Eng<br>Research Professor (Peneliti Ahli Utama)</p>
-      <p class="org">Research Center for Photonics-BRIN<br>KST BJ Habibie, Serpong 15314<br>Tangerang Selatan, Banten, Indonesia</p>
-      <div class="sidebar-links">
+      <p class="org">Research Center for Photonics-BRIN</p>
+      <button class="sidebar-toggle" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('span').textContent = this.nextElementSibling.classList.contains('open') ? 'Hide details' : 'Show profile & links'">
+        <i class="ti ti-chevron-down"></i><span>Show profile & links</span>
+      </button>
+      <div class="sidebar-details">
+        <p class="org-full" style="font-size:12px;color:var(--text-secondary);margin-bottom:1.25rem;padding-bottom:1.25rem;border-bottom:0.5px solid var(--border)">KST BJ Habibie, Serpong 15314<br>Tangerang Selatan, Banten, Indonesia</p>
+        <div class="sidebar-links">
         <a class="sidebar-link" href="mailto:edik004@brin.go.id"><i class="ti ti-mail"></i>edik004@brin.go.id</a>
         <a class="sidebar-link" href="mailto:edik004@pm.me"><i class="ti ti-mail"></i>edik004@pm.me</a>
         <a class="sidebar-link" href="https://orcid.org/0000-0002-6198-9217" target="_blank"><i class="ti ti-id"></i>ORCID &middot; 0000-0002-6198-9217</a>
@@ -242,6 +293,7 @@
         </div>
         <div class="visitor-powered">Powered by Umami Analytics</div>
       </div>
+      </div><!-- end sidebar-details -->
     </aside>
 
     <main class="main">
@@ -377,26 +429,26 @@
         <p class="section-sub">Active and past student supervision. Open for joint supervision under BRIN Degree by Research Program and any other schemes.</p>
 
         <p class="sub-heading">Doctoral (S3)</p>
-        <table class="student-table">
+        <div class="student-table-wrap"><table class="student-table">
           <thead><tr><th>Name</th><th>University</th><th>Year</th><th>Thesis Title</th></tr></thead>
           <tbody>
             <tr><td>Samsul Hafiz</td><td>Fisika MIPA, Universitas Indonesia</td><td>2022&ndash;2025</td><td>Pengembangan Metode Penyeimbang Tegangan Sel Baterai Terhubung Seri Berbasis Metode Parallel Switched Capacitor</td></tr>
             <tr><td>Akif Rahmatillah</td><td>Teknik Fisika, ITS</td><td>2024&ndash;now</td><td>Desain Finite Time Generalized Feedback Repetitive Controller pada Pengendalian Lower Limb Exoskeleton 1-DOF</td></tr>
           </tbody>
-        </table>
+        </table></div>
 
         <p class="sub-heading">Master (S2)</p>
-        <table class="student-table">
+        <div class="student-table-wrap"><table class="student-table">
           <thead><tr><th>Name</th><th>University</th><th>Year</th><th>Thesis Title</th></tr></thead>
           <tbody>
             <tr><td>Ronald Eric</td><td>Universitas Airlangga</td><td>2022&ndash;2023</td><td>Pemodelan Sistem Kontrol 2-DOF Lower Limb Robotic Exoskeleton (LLRE) Menggunakan Metode Kontrol High Order Repetitive Control</td></tr>
             <tr><td>Enggar B. Pratiwi</td><td>Fisika MIPA, Universitas Indonesia</td><td>2023&ndash;2025</td><td>Repetitive Control Berbasis Extreme Learning Machine (ELM) untuk Pelacakan dan Gangguan Sinyal Periodik dengan Ketidakpastian Frekuensi</td></tr>
             <tr><td>Ronald Edward</td><td>Teknik Elektro, Universitas Brawijaya</td><td>2024&ndash;2025</td><td>Perancangan Metode Repetitive Controller dengan Control Barrier Function untuk Penjejakan Sinyal Periodik</td></tr>
           </tbody>
-        </table>
+        </table></div>
 
         <p class="sub-heading">Bachelor (S1)</p>
-        <table class="student-table">
+        <div class="student-table-wrap"><table class="student-table">
           <thead><tr><th>Name</th><th>University</th><th>Year</th><th>Thesis Title</th></tr></thead>
           <tbody>
             <tr><td>Nizarrachman Hadi</td><td>UIN Syarif Hidayatullah Jakarta</td><td>2017</td><td>Analysis of Repetitive Control System for Disturbance Rejection with Multiple Uncorrelated Frequencies</td></tr>
@@ -414,10 +466,10 @@
             <tr><td>Umar Shidiq Ibadurrohman</td><td>Universitas Sebelas Maret Surakarta</td><td>2025</td><td>Sistem Deteksi Penyakit Daun Padi Berbasis Deep Learning dengan Menggunakan Algoritma YOLOv6</td></tr>
             <tr><td>Fitria Rozi</td><td>Universitas Andalas</td><td>2025</td><td>Implementasi Sistem Klasifikasi Penyakit Daun Tomat Berbasis Deep Learning pada Raspberry Pi 5</td></tr>
           </tbody>
-        </table>
+        </table></div>
 
         <p class="sub-heading">Research Assistant (RA)</p>
-        <table class="student-table">
+        <div class="student-table-wrap"><table class="student-table">
           <thead><tr><th>Name</th><th>Level</th><th>University</th><th>Year</th><th>Title</th></tr></thead>
           <tbody>
             <tr><td>Nurhanifiyah Azura</td><td>RA (S1)</td><td>UIN Syarif Hidayatullah Jakarta</td><td>2018</td><td>Sliding Mode Repetitive Controller for a Plant with Time-Varying Sampling Times</td></tr>
@@ -425,17 +477,17 @@
             <tr><td>Enggar B. Pratiwi</td><td>RA (S2)</td><td>Fisika MIPA, Universitas Indonesia</td><td>2023&ndash;2025</td><td>Repetitive Control Berbasis ELM untuk Pelacakan dan Gangguan Sinyal Periodik dengan Ketidakpastian Frekuensi</td></tr>
             <tr><td>Amaliyah Az-Zukhruf</td><td>RA (S1)</td><td>Prodi Fisika, UIN Malang</td><td>2024</td><td>Design and Simulation Notch Filter-Based Repetitive Controller (RC)</td></tr>
           </tbody>
-        </table>
+        </table></div>
 
         <p class="sub-heading">Postdoctoral (PD) / Visiting Researcher (VR)</p>
-        <table class="student-table">
+        <div class="student-table-wrap"><table class="student-table">
           <thead><tr><th>Name</th><th>Type</th><th>University</th><th>Year</th><th>Title</th></tr></thead>
           <tbody>
             <tr><td>Dr. Geetika Srivastava</td><td>VR</td><td>Dr. Rammanohar Lohia Avadh University</td><td>2022</td><td>Real Time Implementation of Electromyography Based Diabetic Sensorimotor Polyneuropathy Severity Classifier Using Adaptive Neuro-Fuzzy Inference System</td></tr>
             <tr><td>Mr. Sandeep Kumar Pandey</td><td>VR</td><td>Dr. Rammanohar Lohia Avadh University</td><td>2022</td><td>Optimized Hardware Implementation of Diabetic Sensorimotor Polyneuropathy Severity Classifier using FPGA</td></tr>
             <tr><td>Dr. Azka Muji Burohman</td><td>PD</td><td>University of Groningen</td><td>2023/2024</td><td>Data-driven reduced-order modelling for predictive digital twin</td></tr>
           </tbody>
-        </table>
+        </table></div>
       </div>
 
       <!-- ACTIVITIES -->
