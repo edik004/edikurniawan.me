@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="e86cde53-780f-4b42-9cf8-f3466133lac4"></script>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="e86cde53-780f-4b42-9cf8-f34661331ac4"></script>
   <style>
     :root {
       --bg: #ffffff;
@@ -285,14 +285,12 @@
         <div class="visitor-row"><span class="vl">Total visits</span><span class="vv" id="v-total">&mdash;</span></div>
         <div class="visitor-row"><span class="vl">Unique visitors</span><span class="vv" id="v-unique">&mdash;</span></div>
         <div class="visitor-row"><span class="vl">Today</span><span class="vv" id="v-today">&mdash;</span></div>
-        <div style="margin-top:8px">
+        <div id="country-section" style="margin-top:8px;display:none">
           <div style="font-size:9px;color:var(--text-tertiary);margin-bottom:5px">Top countries</div>
-          <div style="margin-bottom:4px"><div class="visitor-row"><span class="vl">&#127470;&#127465; Indonesia</span><span class="vv">42%</span></div><div class="vbar-bg"><div class="vbar" style="width:42%"></div></div></div>
-          <div style="margin-bottom:4px"><div class="visitor-row"><span class="vl">&#127462;&#127482; Australia</span><span class="vv">18%</span></div><div class="vbar-bg"><div class="vbar" style="width:18%"></div></div></div>
-          <div style="margin-bottom:4px"><div class="visitor-row"><span class="vl">&#127482;&#127480; USA</span><span class="vv">11%</span></div><div class="vbar-bg"><div class="vbar" style="width:11%"></div></div></div>
-          <div><div class="visitor-row"><span class="vl">&#127465;&#127466; Germany</span><span class="vv">7%</span></div><div class="vbar-bg"><div class="vbar" style="width:7%"></div></div></div>
+          <div id="country-bars"></div>
         </div>
-        <div class="visitor-powered">Powered by Umami Analytics</div>
+        <div class="visitor-powered">Previously 3,665+ views on <a href="https://sites.google.com/site/edikurniawan1982/home" target="_blank" style="color:var(--text-tertiary);text-decoration:underline">Google Sites</a></div>
+        <div class="visitor-powered">Powered by <a href="https://cloud.umami.is/share/lxQmkWydPgpgAa6P" target="_blank" style="color:var(--accent);text-decoration:none">Umami Analytics</a></div>
       </div>
       </div><!-- end sidebar-details -->
     </aside>
@@ -608,11 +606,55 @@
       el.classList.add('active');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-    setTimeout(() => {
-      document.getElementById('v-total').textContent = '1,247';
-      document.getElementById('v-unique').textContent = '834';
-      document.getElementById('v-today').textContent = '23';
-    }, 600);
+
+    // Umami Analytics - fetch real stats
+    (async function loadUmamiStats() {
+      const SHARE_ID = 'lxQmkWydPgpgAa6P';
+      const BASE = 'https://cloud.umami.is/api/share/' + SHARE_ID;
+      const now = Date.now();
+      const thirtyDaysAgo = now - 30 * 24 * 60 * 60 * 1000;
+      const todayStart = new Date(); todayStart.setHours(0,0,0,0);
+      const countryNames = {ID:'Indonesia',AU:'Australia',US:'USA',DE:'Germany',JP:'Japan',GB:'UK',MY:'Malaysia',IN:'India',SG:'Singapore',NL:'Netherlands',FR:'France',KR:'South Korea',CN:'China',TW:'Taiwan',TH:'Thailand',SA:'Saudi Arabia',AE:'UAE'};
+      const countryFlags = {ID:'\u{1F1EE}\u{1F1E9}',AU:'\u{1F1E6}\u{1F1FA}',US:'\u{1F1FA}\u{1F1F8}',DE:'\u{1F1E9}\u{1F1EA}',JP:'\u{1F1EF}\u{1F1F5}',GB:'\u{1F1EC}\u{1F1E7}',MY:'\u{1F1F2}\u{1F1FE}',IN:'\u{1F1EE}\u{1F1F3}',SG:'\u{1F1F8}\u{1F1EC}',NL:'\u{1F1F3}\u{1F1F1}',FR:'\u{1F1EB}\u{1F1F7}',KR:'\u{1F1F0}\u{1F1F7}',CN:'\u{1F1E8}\u{1F1F3}',TW:'\u{1F1F9}\u{1F1FC}',TH:'\u{1F1F9}\u{1F1ED}',SA:'\u{1F1F8}\u{1F1E6}',AE:'\u{1F1E6}\u{1F1EA}'};
+
+      try {
+        // 30-day stats
+        const res = await fetch(BASE + '/stats?startAt=' + thirtyDaysAgo + '&endAt=' + now);
+        if (res.ok) {
+          const data = await res.json();
+          document.getElementById('v-total').textContent = (data.visits || 0).toLocaleString();
+          document.getElementById('v-unique').textContent = (data.visitors || 0).toLocaleString();
+        }
+        // Today stats
+        const resToday = await fetch(BASE + '/stats?startAt=' + todayStart.getTime() + '&endAt=' + now);
+        if (resToday.ok) {
+          const today = await resToday.json();
+          document.getElementById('v-today').textContent = (today.visitors || 0).toLocaleString();
+        }
+        // Country breakdown (30d)
+        const resCountry = await fetch(BASE + '/metrics?startAt=' + thirtyDaysAgo + '&endAt=' + now + '&type=country');
+        if (resCountry.ok) {
+          const countries = await resCountry.json();
+          if (countries.length > 0) {
+            const total = countries.reduce((s, c) => s + c.y, 0);
+            const top4 = countries.slice(0, 4);
+            const container = document.getElementById('country-bars');
+            container.innerHTML = '';
+            top4.forEach(c => {
+              const pct = Math.round((c.y / total) * 100);
+              const flag = countryFlags[c.x] || '';
+              const name = countryNames[c.x] || c.x;
+              container.innerHTML += '<div style="margin-bottom:4px"><div class="visitor-row"><span class="vl">' + flag + ' ' + name + '</span><span class="vv">' + pct + '%</span></div><div class="vbar-bg"><div class="vbar" style="width:' + pct + '%"></div></div></div>';
+            });
+            document.getElementById('country-section').style.display = 'block';
+          }
+        }
+      } catch (e) {
+        document.getElementById('v-total').textContent = '—';
+        document.getElementById('v-unique').textContent = '—';
+        document.getElementById('v-today').textContent = '—';
+      }
+    })();
   </script>
 
 </body>
